@@ -1,16 +1,14 @@
 package com.sharnqvist.forthinventory;
 
+import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import lombok.*;
-import org.springframework.data.annotation.Id;
+import jakarta.persistence.Id;
 
 import java.util.Objects;
 
-@NoArgsConstructor
-@AllArgsConstructor
-@RequiredArgsConstructor
-@Data
-class Item {
+@Entity
+public class Item {
     private @Id
     @GeneratedValue Long id;
     private String category;
@@ -21,6 +19,10 @@ class Item {
         this.category = category;
         this.name = name;
         this.location = sprintCorridor;
+    }
+
+    public Item() {
+
     }
 
     public String getCategory() {
@@ -67,5 +69,13 @@ class Item {
     @Override
     public String toString() {
         return "Item{" + "id=" + this.id + ", name='" + this.name + '\'' + ", role='" + this.location + '\'' + '}';
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Long getId() {
+        return id;
     }
 }
