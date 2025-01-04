@@ -63,7 +63,7 @@ public class Item {
 
     @Override
     public int hashCode() {
-        return Objects.hash(this.id, this.name);
+        return Objects.hash(this.id, this.name, this.location);
     }
 
     @Override
