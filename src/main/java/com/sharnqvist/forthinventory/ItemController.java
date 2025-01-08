@@ -11,7 +11,10 @@ import java.util.stream.Collectors;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
+import lombok.extern.slf4j.Slf4j;
+
 @RestController
+@Slf4j
 @RequestMapping("/items")
 public class ItemController {
     private final ItemRepository repository;
@@ -36,12 +39,14 @@ public class ItemController {
     @PostMapping
     @ResponseStatus(HttpStatus.ACCEPTED)
     Item newItem(@RequestBody Item newItem) {
+        log.info("POST item: {}", newItem);
         return repository.save(newItem);
     }
 
     @GetMapping("/{id}")
     public EntityModel<Item> one(@PathVariable Long id) {
         Item item = repository.findById(id).orElseThrow(() -> new ItemNotFoundException(id));
+        log.info("GET Item: {}", item);
         return EntityModel.of(item,
                 linkTo(methodOn(ItemController.class).one(id)).withSelfRel(),
                 linkTo(methodOn(ItemController.class).all()).withRel("items"));
